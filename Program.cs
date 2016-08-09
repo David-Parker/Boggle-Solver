@@ -11,22 +11,7 @@ namespace Boggle
     {
         static void Main(string[] args)
         {
-            char[,] board =
-            {
-                { 'd','z','x' },
-                { 'e','a','i' },
-                { 'q','u','t' }
-            };
-
-            ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
-            IResults results = solver.FindWords(board);
-
-            foreach (var result in results.Words)
-            {
-                Console.WriteLine(result);
-            }
-
-            Console.WriteLine(String.Format("Final Score: {0}", results.Score));
+            BoggleTests.StartTests();
         }
     }
 }
