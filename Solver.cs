@@ -165,21 +165,21 @@ namespace Boggle
         /// </summary>
         private bool CouldMakeWord(string word)
         {
-            return CouldMakeWordHelper(root, word);
+            return CouldMakeWordHelper(root, word, 0);
         }
 
         /// <summary>
         /// Uses a prefix tree (trie tree) to validate that this word is still a potential candidate to create a new word
         /// </summary>
-        private bool CouldMakeWordHelper(TrieNode root, string word)
+        private bool CouldMakeWordHelper(TrieNode root, string word, int elementIndex)
         {
             // We made it all the way down the tree with this word
-            if(word.Length == 0)
+            if(elementIndex == word.Length)
             {
                 return true;
             }
 
-            char c = word.ElementAt(0);
+            char c = word.ElementAt(elementIndex);
             int index = c - 'A';
 
             if(null == root.children[index])
@@ -188,7 +188,7 @@ namespace Boggle
             }
             else
             {
-                return CouldMakeWordHelper(root.children[index], word.Substring(1));
+                return CouldMakeWordHelper(root.children[index], word, ++elementIndex);
             }
 
         }
