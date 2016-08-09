@@ -45,63 +45,63 @@ namespace Boggle
         }
 
         /* Test Methods */
-        private static void EmptyBoard()
-        {
-            char[,] board =
-            {
-                { }
-            };
+        //private static void EmptyBoard()
+        //{
+        //    char[,] board =
+        //    {
+        //        { }
+        //    };
 
-            ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
-            IResults results = solver.FindWords(board);
+        //    ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
+        //    IResults results = solver.FindWords(board);
 
-            AssertEqual(results.Score, 0);
-        }
+        //    AssertEqual(results.Score, 0);
+        //}
 
-        private static void SmallBoard()
-        {
-            char[,] board =
-            {
-                { 'a', 'b' },
-                { 'c', 'e'}
-            };
+        //private static void SmallBoard()
+        //{
+        //    char[,] board =
+        //    {
+        //        { 'a', 'b' },
+        //        { 'c', 'e'}
+        //    };
 
-            ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
-            IResults results = solver.FindWords(board);
+        //    ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
+        //    IResults results = solver.FindWords(board);
 
-            AssertEqual(results.Score, 2);
-        }
+        //    AssertEqual(results.Score, 2);
+        //}
 
-        private static void UnityBoard()
-        {
-            char[,] board =
-           {
-                { 'd','z','x' },
-                { 'e','a','i' },
-                { 'q','u','t' }
-            };
+        //private static void UnityBoard()
+        //{
+        //    char[,] board =
+        //   {
+        //        { 'd','z','x' },
+        //        { 'e','a','i' },
+        //        { 'q','u','t' }
+        //    };
 
-            ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
-            IResults results = solver.FindWords(board);
+        //    ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
+        //    IResults results = solver.FindWords(board);
 
-            AssertEqual(results.Score,25);
-        }
+        //    AssertEqual(results.Score,25);
+        //}
 
-        private static void NonSquare()
-        {
-            char[,] board =
-           {
-                { 'd','z','x' },
-                { 'e','a','i' }
-            };
+        //private static void NonSquare()
+        //{
+        //    char[,] board =
+        //   {
+        //        { 'd','z','x' },
+        //        { 'e','a','i' }
+        //    };
 
-            ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
-            IResults results = solver.FindWords(board);
+        //    ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
+        //    IResults results = solver.FindWords(board);
 
-            AssertEqual(results.Score, 6);
-        }
+        //    AssertEqual(results.Score, 6);
+        //}
 
-        private static void RandomBoard()
+        private static void RandomBoardSmall()
         {
             char[,] board =
            {
@@ -116,6 +116,44 @@ namespace Boggle
 
             AssertEqual(results.Score, 43);
         }
+
+        //private static void RandomBoardMedium()
+        //{
+        //    char[,] board =
+        //   {
+        //        {'a','e','q','i','d','g'},
+        //        {'h','e','f','h','y','l'},
+        //        {'d','y','n','s','m','s'},
+        //        {'q','x','d','y','m','f'},
+        //        {'k','a','q','c','d','h'},
+        //        {'n','k','e','q','v','e'}
+        //    };
+
+        //    ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
+        //    IResults results = solver.FindWords(board);
+
+        //    AssertEqual(results.Score, 71);
+        //}
+
+        //private static void RandomBoardLarge()
+        //{
+        //    char[,] board =
+        //   {
+        //        {'a','e','q','i','d','g','h','z'},
+        //        {'h','e','f','h','y','l','o','x'},
+        //        {'d','y','n','s','m','s','c','m'},
+        //        {'q','x','d','y','m','f','a','f'},
+        //        {'k','a','q','c','d','h','u','o'},
+        //        {'n','k','e','q','v','e','w','d'},
+        //        {'a','j','o','w','v','g','z','t'}
+        //    };
+
+        //    ISolver solver = MyBoggleSolution.CreateSolver("../../dictionary.txt");
+        //    IResults results = solver.FindWords(board);
+
+        //    AssertEqual(results.Score, 177);
+        //}
+
         /* End of Test Methods */
 
         /// <summary>

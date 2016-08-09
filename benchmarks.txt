@@ -1,0 +1,15 @@
+RandomSmall
+Base: 00:29.27
+v1: 00:07.31
+v2:
+
+RandomMedium
+Base: ???
+v1: 00:20.00
+v2:
+
+RandomLarge
+Base: ???
+v1: 00:46.06
+v2:
+

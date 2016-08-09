@@ -66,17 +66,9 @@ namespace Boggle
             // We visited this node, don't return here again
             visitedNodes.Add(new Tuple<int, int>(row, col));
 
-            string c = board[row, col].ToString();
+            char c = board[row, col];
 
-            // 'q' represents 'qu' in Boggle, since q is almost ubiquitously followed by a u
-            if(c == "q")
-            {
-                currWord += "qu";
-            }
-            else
-            {
-                currWord += c;
-            }
+            currWord = AppendChar(currWord, c);
             
             if(!foundWordCache.Contains(currWord) && IsScoredBoggleWord(currWord))
             {
@@ -92,9 +84,18 @@ namespace Boggle
                 {
                     if (!visitedNodes.Contains(new Tuple<int, int>(row + i, col + j)) && PointIsInBounds(row + i, col + j, board))
                     {
-                        foreach (var word in GetWord(row + i, col + j, board, currWord, visitedNodes, foundWordCache))
+                        // Peek the next character, if no word can be created with this new character, don't attempt
+                        char nextCharacter = board[row + i, col + j];
+                        string newWord = AppendChar(currWord, nextCharacter);
+
+                        bool canMakeWord = CouldMakeWord(newWord);
+
+                        if (canMakeWord)
                         {
-                            yield return word;
+                            foreach (var word in GetWord(row + i, col + j, board, currWord, visitedNodes, foundWordCache))
+                            {
+                                yield return word;
+                            }
                         }
                     }
                 }
@@ -102,6 +103,23 @@ namespace Boggle
 
             // Recursive backtrack, remove the node "lock"
             visitedNodes.Remove(new Tuple<int, int>(row, col));
+        }
+
+        private bool CouldMakeWord(string word)
+        {
+            foreach(var key in words)
+            {
+                if (word.Length > key.Length)
+                {
+                    continue;
+                }
+                if(word.ToUpper() == key.Substring(0, word.Length).ToUpper())
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -166,6 +184,21 @@ namespace Boggle
             }
 
             return 0;
+        }
+
+        private string AppendChar(string currWord, char c)
+        {
+            // 'q' represents 'qu' in Boggle, since q is almost ubiquitously followed by a u
+            if (c == 'q')
+            {
+                currWord += "qu";
+            }
+            else
+            {
+                currWord += c;
+            }
+
+            return currWord;
         }
     }
 }
