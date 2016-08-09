@@ -75,7 +75,7 @@ namespace Boggle
         private static void UnityBoard()
         {
             char[,] board =
-           {
+            {
                 { 'd','z','x' },
                 { 'e','a','i' },
                 { 'q','u','t' }
@@ -90,7 +90,7 @@ namespace Boggle
         private static void NonSquare()
         {
             char[,] board =
-           {
+            {
                 { 'd','z','x' },
                 { 'e','a','i' }
             };
@@ -104,7 +104,7 @@ namespace Boggle
         private static void RandomBoardSmall()
         {
             char[,] board =
-           {
+            {
                 {'a','e','q','i'},
                 {'h','e','f','h'},
                 {'d','y','n','s'},
@@ -120,7 +120,7 @@ namespace Boggle
         private static void RandomBoardMedium()
         {
             char[,] board =
-           {
+            {
                 {'a','e','q','i','d','g'},
                 {'h','e','f','h','y','l'},
                 {'d','y','n','s','m','s'},
@@ -138,7 +138,7 @@ namespace Boggle
         private static void RandomBoardLarge()
         {
             char[,] board =
-           {
+            {
                 {'a','e','q','i','d','g','h','z'},
                 {'h','e','f','h','y','l','o','x'},
                 {'d','y','n','s','m','s','c','m'},
