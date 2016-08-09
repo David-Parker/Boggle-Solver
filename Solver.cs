@@ -11,15 +11,47 @@ namespace Boggle
     /// </summary>
     public class Solver : ISolver
     {
+        /// <summary>
+        /// Prefix tree, will allow for fast substring matches on potential matched words
+        /// </summary>
+        private class TrieNode
+        {
+            public TrieNode(string elem)
+            {
+                this.elem = elem;
+            }
+
+            public string elem;
+            public TrieNode[] children = new TrieNode[26];
+        }
+
         private HashSet<string> words;
+        private TrieNode root;
 
         public Solver(HashSet<string> words)
         {
+            if(null == words)
+            {
+                throw new ArgumentNullException("The words dictionary cannot be null.");
+            }
+
             this.words = words;
+            this.root = new TrieNode("");
+
+            // Build the trie tree recursively
+            foreach(var word in words)
+            {
+                BuildTrie(this.root, word, 0);
+            }
         }
 
         public IResults FindWords(char[,] board)
         {
+            if(null == board)
+            {
+                throw new ArgumentNullException("The board cannot be null.");
+            }
+
             Results results = new Results();
 
             results.SetWords(GetAllWords(board));
@@ -31,6 +63,29 @@ namespace Boggle
             }
 
             return results;
+        }
+
+        /// <summary>
+        /// Builds a trie tree, word is assumed to be upper case
+        /// </summary>
+        private void BuildTrie(TrieNode root, string word, int elementIndex)
+        {
+            if (elementIndex == word.Length)
+            {
+                return;
+            }
+
+            char c = word.ElementAt(elementIndex);
+            int index = c - 'A';
+
+            // Element doesn't exist, build it
+            if (null == root.children[index])
+            {
+                TrieNode newNode = new TrieNode(c.ToString());
+                root.children[index] = newNode;
+            }
+
+            BuildTrie(root.children[index], word, ++elementIndex);
         }
 
         /// <summary>
@@ -88,7 +143,7 @@ namespace Boggle
                         char nextCharacter = board[row + i, col + j];
                         string newWord = AppendChar(currWord, nextCharacter);
 
-                        bool canMakeWord = CouldMakeWord(newWord);
+                        bool canMakeWord = CouldMakeWord(newWord.ToUpper());
 
                         if (canMakeWord)
                         {
@@ -105,21 +160,37 @@ namespace Boggle
             visitedNodes.Remove(new Tuple<int, int>(row, col));
         }
 
+        /// <summary>
+        /// Returns true if it still possible to make a word from our dictionary given the input word
+        /// </summary>
         private bool CouldMakeWord(string word)
         {
-            foreach(var key in words)
+            return CouldMakeWordHelper(root, word);
+        }
+
+        /// <summary>
+        /// Uses a prefix tree (trie tree) to validate that this word is still a potential candidate to create a new word
+        /// </summary>
+        private bool CouldMakeWordHelper(TrieNode root, string word)
+        {
+            // We made it all the way down the tree with this word
+            if(word.Length == 0)
             {
-                if (word.Length > key.Length)
-                {
-                    continue;
-                }
-                if(word.ToUpper() == key.Substring(0, word.Length).ToUpper())
-                {
-                    return true;
-                }
+                return true;
             }
 
-            return false;
+            char c = word.ElementAt(0);
+            int index = c - 'A';
+
+            if(null == root.children[index])
+            {
+                return false;
+            }
+            else
+            {
+                return CouldMakeWordHelper(root.children[index], word.Substring(1));
+            }
+
         }
 
         /// <summary>

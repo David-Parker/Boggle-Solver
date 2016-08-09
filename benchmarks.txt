@@ -1,12 +1,12 @@
 RandomSmall
 Base: 00:29.27
 v1: 00:07.31
-v2:
+v2: 00:00.11
 
 RandomMedium
 Base: ???
 v1: 00:20.00
-v2:
+v2: 00.00.11
 
 RandomLarge
 Base: ???
